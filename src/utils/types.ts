@@ -90,7 +90,7 @@ export interface MostRecentEmployeePayment {
   total_employees_on_leave: number;
   total_employees_on_retirement: number;
   pending_pay: number;
-  payment: Payment;
+  // payment: Payment;
 }
 
 export interface EmployeePayment {

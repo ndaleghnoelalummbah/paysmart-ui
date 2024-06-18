@@ -76,7 +76,7 @@ export const useGetPaymentDetails = () => {
             total_employees_on_leave: item.total_employees_on_leave,
             total_employees_on_retirement: item.total_employees_on_retirement,
             pending_pay: item.pending_pay,
-            payment: item.payment,
+            // payment: item.payment,
           };
         });
 

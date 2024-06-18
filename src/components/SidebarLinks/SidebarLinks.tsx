@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import React, { FC } from 'react'
-import { FaCog } from 'react-icons/fa'
 import { usePathname } from 'next/navigation'
 import { IconType } from 'react-icons';
 
