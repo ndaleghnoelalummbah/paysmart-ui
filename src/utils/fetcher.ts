@@ -57,6 +57,11 @@ export const API = {
     return res;
   },
 
+  signOut: async (token: string) => {
+    const res = await API.execute("auth/logout", "GET", null, token);
+    return res;
+  },
+
   /**
    *API request to get all users
    * @param token

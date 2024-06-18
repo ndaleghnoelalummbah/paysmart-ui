@@ -14,7 +14,10 @@ export const useUserStore = create<UserState>()(
     (set) => ({
       user: null,
       setUser: (user) => set({ user }),
-      clearUser: () => set({ user: null }),
+      clearUser: () => {
+        set({ user: null });
+        localStorage.clear();
+      },
     }),
     {
       name: "user-storage", // name of the item in the storage
@@ -22,7 +25,6 @@ export const useUserStore = create<UserState>()(
     },
   ),
 );
-
 
 interface AdminsState {
   admins: Admin[];
@@ -48,7 +50,3 @@ export const useAdminsStore = create<AdminsState>()(
     },
   ),
 );
-
-
-
-

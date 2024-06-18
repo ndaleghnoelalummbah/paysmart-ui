@@ -33,8 +33,9 @@ const SignIn: React.FC = () => {
         const admin = {
           id: user.id,
           accessToken: res.header.accessToken,
-          name: user.password,
+          password: user.password,
           email: user.email,
+          is_super_admin: user.is_super_admin,
         };
         // AsyncStorage.setItem("token", res.data.user.accessToken);
         setUser(admin);

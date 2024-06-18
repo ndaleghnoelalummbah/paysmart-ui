@@ -11,6 +11,7 @@ export interface Admin {
   password?: string;
   password_confirmation?: string;
   accessToken?: string;
+  is_super_admin?: number;
 }
 export interface Department {
   id: number;

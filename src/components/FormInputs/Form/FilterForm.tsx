@@ -30,7 +30,7 @@ const FilterForm = () => {
           onSubmit={(values: FilterParams) => handleSubmit(values)}
         >
           {({ values, isSubmitting }) => (
-            <Form className=" fex my-4 grid grid-cols-7 flex-row  gap-x-4">
+            <Form className=" mt-16 mb-4 grid grid-cols-7 flex-row  gap-x-4">
               <Field
                 name="matricule"
                 labelText="Matricule"

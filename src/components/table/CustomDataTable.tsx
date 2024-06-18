@@ -95,7 +95,7 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
         </button>}
       </div>
     ),
-    minWidth: "300px",
+    minWidth: "200px",
     ignoreRowClick: true,
     allowOverflow: true,
     button: true,
