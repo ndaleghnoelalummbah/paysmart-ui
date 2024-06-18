@@ -24,6 +24,7 @@ import {
   FaUserSecret,
   FaQuestionCircle,
 } from "react-icons/fa";
+import AnualSummaryReport from "@/components/Reports/AnualSummaryReport";
 
 
 const page = () => {
@@ -59,22 +60,6 @@ const page = () => {
     <DefaultLayout>
       <Breadcrumb pageName="Dahboard" />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        {/* {
-        recent_payments.map((entries) => {
-          return Object.entries(entries).map(([key, value]) => {
-            return (
-              <CardDataStats
-                title={key.replace(/_/g, " ")}
-                total={value}
-                icon={FaMoneyBillWave}
-              />
-            );
-          });
-
-         
-        })
-       } */}
-
         {recent_payments.map((entries, index) => (
           <React.Fragment key={index}>
             {Object.entries(entries).map(([key, value]) => {
@@ -90,6 +75,9 @@ const page = () => {
             })}
           </React.Fragment>
         ))}
+      </div>
+      <div className=" mt-24">
+        <AnualSummaryReport />
       </div>
     </DefaultLayout>
   );
