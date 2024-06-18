@@ -3,7 +3,7 @@ import { FilterParams } from "@/utils/types";
 import { useGetEmployees } from "@/utils/useGetEmployees";
 import { filterValidationSchema } from "@/utils/validationSchema";
 import { Formik, Form, Field } from "formik";
-import { Input } from "../Inputs";
+import { Input } from "../FormInputs/Inputs";
 import React from "react";
 
 const FilterForm = () => {

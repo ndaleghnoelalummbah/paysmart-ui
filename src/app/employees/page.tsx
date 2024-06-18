@@ -10,7 +10,7 @@ import { useUserStore } from "@/zustand/Admin";
 import { ToastContainer, toast } from "react-toastify";
 import { useEmployeeStore } from "@/zustand/employees";
 import { useGetEmployees } from "@/utils/useGetEmployees";
-import FilterForm from "@/components/FormInputs/Form/FilterForm";
+import FilterForm from "@/components/Form/FilterForm";
 
 const page = () => {
   const { user } = useUserStore();
