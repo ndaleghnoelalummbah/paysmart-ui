@@ -32,6 +32,7 @@ interface CustomDAtaTableProps {
   onPageChange?: () => void;
   viewAttendances?: (row: any) => void;
   viewPayments?: (row: any) => void;
+  resetPassword?: (row: any) => void;
 }
 
 const CustomDataTable: FC<CustomDAtaTableProps> = ({
@@ -44,55 +45,84 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
   onPageChange,
   viewAttendances,
   viewPayments,
-  withAction = true
+  resetPassword,
+  withAction = true,
 }) => {
-  const viewHandler = (row:RowType) => {
-   {handleView && handleView(row);}
+  const viewHandler = (row: RowType) => {
+    {
+      handleView && handleView(row);
+    }
   };
   const attendanceHandler = (row: RowType) => {
-   {viewAttendances && viewAttendances(row);}
+    {
+      viewAttendances && viewAttendances(row);
+    }
   };
   const paymentHandler = (row: RowType) => {
-   {viewPayments && viewPayments(row);}
+    {
+      viewPayments && viewPayments(row);
+    }
   };
   const deleteHandler = (row: RowType) => {
     {
       handleDelete && handleDelete(row);
     }
   };
+const resetPasswordHandler = (row: RowType) => {
+  {
+    resetPassword && resetPassword(row);
+  }
+};
 
   const actionsColumn = {
     name: "Actions",
     cell: (row: RowType) => (
       <div className="flex space-x-2">
-       {handleView && <button
-          onClick={() => viewHandler(row)}
-          className="mr-2 rounded bg-blue-500 px-2 py-1 text-white"
-        >
-          View
-        </button>}
-       {viewAttendances && <button
-          onClick={() => attendanceHandler(row)}
-          className="mr-2 rounded bg-blue-500 px-2 py-1 text-white"
-        >
-          Attendances
-        </button>}
-       {viewPayments && <button
-          onClick={() => paymentHandler(row)}
-          className="mr-2 rounded bg-blue-500 px-2 py-1 text-white"
-        >
-          Payments
-        </button>}
+        {handleView && (
+          <button
+            onClick={() => viewHandler(row)}
+            className="mr-2 rounded bg-blue-500 px-2 py-1 text-white"
+          >
+            View
+          </button>
+        )}
+        {viewAttendances && (
+          <button
+            onClick={() => attendanceHandler(row)}
+            className="mr-2 rounded bg-secondary px-2 py-1 text-white"
+          >
+            Attendances
+          </button>
+        )}
+        {viewPayments && (
+          <button
+            onClick={() => paymentHandler(row)}
+            className="mr-2 rounded bg-primary px-2 py-1 text-white"
+          >
+            Payments
+          </button>
+        )}
         {/* {
           viewAttendances &&
           <Button text={"Attendances"} color={"primary"} btnType={"button"} onClick={viewAttendances} />
         } */}
-       {handleDelete && <button
-          onClick={() => deleteHandler(row)}
-          className="mr-2 rounded bg-danger px-2 py-1 font-semibold text-white"
-        >
-          Delete
-        </button>}
+
+        {resetPassword && (
+          <button
+            onClick={() => resetPasswordHandler(row)}
+            className="mr-2 rounded bg-secondary px-2 py-1 text-white"
+          >
+            Reset password
+          </button>
+        )}
+        {handleDelete && (
+          <button
+            onClick={() => deleteHandler(row)}
+            className="mr-2 rounded bg-danger px-2 py-1 font-semibold text-white"
+          >
+            Delete
+          </button>
+        )}
       </div>
     ),
     minWidth: "200px",
@@ -102,9 +132,7 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
   };
 
   const columnsWithActions = [...columns, actionsColumn];
-  const finalColumns = withAction
-    ? [...columns, actionsColumn]
-    : [...columns];
+  const finalColumns = withAction ? [...columns, actionsColumn] : [...columns];
 
   return (
     <div>

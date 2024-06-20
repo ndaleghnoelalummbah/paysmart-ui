@@ -10,15 +10,19 @@ import { useUserStore, useAdminsStore } from "@/zustand/Admin";
 import { toast } from "react-toastify";
 import DeleteModal from "@/components/Modals/DeleteModal";
 import Button from "@/Button/Button";
+import PasswordResetModal from "@/components/Modals/PasswordResetModal";
+import useAuth from "@/utils/useAuth";
 
 const page = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showPasswordResetModal, setShowPasswordResetModal] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState<Admin | null>(null);
   const { user } = useUserStore();
   const { setAdmins, admins, removeAdmin } = useAdminsStore();
+  const { resetPassword } = useAuth();
   const router = useRouter();
   useEffect(() => {
-    // getAdmins();
+    getAdmins();
   }, [user?.accessToken]);
 
   const getAdmins = async () => {
@@ -119,6 +123,15 @@ const page = () => {
     router.push("admins/create");
   };
 
+
+    const handlResetPassword = (row: Admin) => {
+     setSelectedAdmin(row);
+      setShowPasswordResetModal(true);
+      // Implement the delete logic
+    };
+
+   
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Admins" />
@@ -136,6 +149,7 @@ const page = () => {
         data={admins}
         // handleView={handleViewAdmin}
         handleDelete={handleDeleteAdmin}
+        resetPassword={handlResetPassword}
         paginate={false}
       />
       <DeleteModal
@@ -144,6 +158,12 @@ const page = () => {
         show={showDeleteModal}
         // name={selectedAdmin?.email}
       />
+      {showPasswordResetModal && (
+        <PasswordResetModal
+          setShowPasswordResetModal={setShowPasswordResetModal}
+          selectedAdmin={selectedAdmin}
+        />
+      )}
     </DefaultLayout>
   );
 };

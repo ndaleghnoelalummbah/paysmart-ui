@@ -4,14 +4,16 @@ import { YearlyEmployeePaymentSummary } from "@/utils/types";
 import { useAnualPaymentStore } from "@/zustand/AnualPaymentSummary";
 import React, { useEffect } from "react";
 import { useGetPaymentDetails } from "@/utils/useGetPaymentDetails";
+import { useUserStore } from "@/zustand/Admin";
 
 export const AnualSummaryReport = () => {
   const { anual_payments } = useAnualPaymentStore();
   const { getAnualPayments } = useGetPaymentDetails();
+  const { user } = useUserStore();
 
   useEffect(() => {
     getAnualPayments();
-  }, []);
+  }, [user?.accessToken]);
 
   const paymentColumns = [
     {
@@ -94,23 +96,23 @@ export const AnualSummaryReport = () => {
   ];
 
   return (
-      <CustomDataTable
-        title="Anual Payment Records"
-        columns={paymentColumns}
-        data={anual_payments}
-        withAction={false}
-        // handleView={handleViewEmployee}
-        // handleDelete={handleDeleteAdmin}
-        // onPageChange={handlePageChange}
-        // viewAttendances={viewEmployeeAtendances}
-        // viewPayments={viewEmployeePayments}
-        // paginate={{
-        //   current_page: pagination.current_page,
-        //   last_page: pagination.last_page,
-        //   per_page: pagination.per_page,
-        //   onPageChange: handlePageChange,
-        // }}
-      />
+    <CustomDataTable
+      title="Anual Payment Records"
+      columns={paymentColumns}
+      data={anual_payments}
+      withAction={false}
+      // handleView={handleViewEmployee}
+      // handleDelete={handleDeleteAdmin}
+      // onPageChange={handlePageChange}
+      // viewAttendances={viewEmployeeAtendances}
+      // viewPayments={viewEmployeePayments}
+      // paginate={{
+      //   current_page: pagination.current_page,
+      //   last_page: pagination.last_page,
+      //   per_page: pagination.per_page,
+      //   onPageChange: handlePageChange,
+      // }}
+    />
   );
 };
 

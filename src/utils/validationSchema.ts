@@ -27,3 +27,14 @@ export const filterValidationSchema = yup.object({
   min_absences: yup.string().optional(),
   min_sick_days: yup.string().optional(),
 });
+
+export const resetPasswordValidationSchema = yup.object({
+  password: yup
+    .string()
+    .min(8, "Password should have atleast 8 characters")
+    .required("Password is required"),
+  password_confirmation: yup
+    .string()
+    .oneOf([yup.ref("password")], "Passwords must match")
+    .required("Confirm Password is required"),
+});

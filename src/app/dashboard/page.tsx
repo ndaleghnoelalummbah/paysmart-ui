@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 import { useUserStore } from "@/zustand/Admin";
 import { useRecentPaymentStore } from "@/zustand/MostRecentPay";
 import { useGetPaymentDetails } from "@/utils/useGetPaymentDetails";
-import ECommerce from "@/components/Dashboard/E-commerce";
 import CardDataStats from "@/components/CardDataStats";
 import {
   FaMoneyBillWave,
@@ -25,16 +24,19 @@ import {
   FaQuestionCircle,
 } from "react-icons/fa";
 import AnualSummaryReport from "@/components/Reports/AnualSummaryReport";
-
+import Button from "@/Button/Button";
+import { usePaymentAction } from "@/utils/usePaymentAction";
 
 const page = () => {
   const { user } = useUserStore();
   const { recent_payments } = useRecentPaymentStore();
   const { getRecentPayments } = useGetPaymentDetails();
+  const { makePayment, initiatePayment } = usePaymentAction()
 
   useEffect(() => {
     getRecentPayments();
-  }, []);
+  }, [user?.accessToken]);
+
   console.log("user", user);
   console.log("most recent pay", recent_payments);
 
@@ -59,6 +61,23 @@ const page = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Dahboard" />
+      <div className=" my-8 flex justify-end ">
+        <div className="flex w-[300px] gap-4">
+          <Button
+            text="Initiate Payment"
+            color="secondary"
+            btnType={"button"}
+            onClick={()=> initiatePayment()}
+          />
+          <Button
+            text="Make Payment"
+            color="primary"
+            btnType={"button"}
+            onClick={() => makePayment()}
+          />
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         {recent_payments.map((entries, index) => (
           <React.Fragment key={index}>

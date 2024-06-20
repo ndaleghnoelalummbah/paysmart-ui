@@ -57,8 +57,32 @@ export const API = {
     return res;
   },
 
+  /**
+   * API request to for Admin logout
+   * @param token
+   * @returns
+   */
+
   signOut: async (token: string) => {
     const res = await API.execute("auth/logout", "GET", null, token);
+    return res;
+  },
+
+
+  /**
+   * API for superadmin to change password for admins
+   * @param id 
+   * @param data 
+   * @param token 
+   * @returns 
+   */
+  passwordReset: async (id: string, data: Partial<Admin>, token: string) => {
+    const res = await API.execute(
+      `admins/password/reset/${id}`,
+      "POST",
+      JSON.stringify(data),
+      token,
+    );
     return res;
   },
 
@@ -111,12 +135,11 @@ export const API = {
     page: number,
     filter_params: FilterParams,
   ) => {
-    const res = await API.execute(
-      `employees?matricule=${filter_params.matricule}&position=${filter_params.position}&department=${filter_params.department}&min_overtime=${filter_params.min_overtime}&min_absences=${filter_params.min_absences}&min_sick_days=${filter_params.min_sick_days}page=${page}`,
-      "GET",
-      null,
-      token,
-    );
+    const url = filter_params
+      ? `employees?matricule=${filter_params.matricule}&position=${filter_params.position}&department=${filter_params.department}&min_overtime=${filter_params.min_overtime}&min_absences=${filter_params.min_absences}&min_sick_days=${filter_params.min_sick_days}page=${page}`
+      : "employees";
+
+    const res = await API.execute(url, "GET", null, token);
     return res;
   },
 
@@ -182,6 +205,26 @@ export const API = {
     );
     console.log("response for recent payment", res);
 
+    return res;
+  },
+
+  /**
+   * API request for make payment
+   * @param token
+   * @returns
+   */
+  makePayment: async (token: string) => {
+    const res = await API.execute("make-payment", "POST", null, token);
+    return res;
+  },
+
+  /**
+   * API request for make payment
+   * @param token
+   * @returns
+   */
+  initiatePayment: async (token: string) => {
+    const res = await API.execute("initiate-payment", "POST", null, token);
     return res;
   },
 };

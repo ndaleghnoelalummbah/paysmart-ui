@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect } from "react";
 import SweetAlert from "react-bootstrap-sweetalert";
-// import remove from "@images/icons/remove.jpg";
 import remove from "../../../public/images/icons/remove.jpg";
 
-const DeleteModal = (props) => {
+const DeleteModal = (props: any) => {
   const { cancelDelete, confirmDelete, show } = props;
 
   const escFunction = useCallback((event) => {
@@ -44,3 +43,4 @@ const DeleteModal = (props) => {
   );
 };
 export default DeleteModal;
+

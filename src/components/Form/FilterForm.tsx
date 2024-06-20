@@ -30,7 +30,7 @@ const FilterForm = () => {
           onSubmit={(values: FilterParams) => handleSubmit(values)}
         >
           {({ values, isSubmitting }) => (
-            <Form className=" mt-16 mb-4 grid grid-cols-7 flex-row  gap-x-4">
+            <Form className=" mb-4 mt-16 grid gap-x-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-7">
               <Field
                 name="matricule"
                 labelText="Matricule"
@@ -57,21 +57,21 @@ const FilterForm = () => {
                 labelText="Minimum over time"
                 placeholder="Min overtime"
                 component={Input}
-                 type='text'
+                type="text"
               />
               <Field
                 name="min_absences"
                 labelText="Minimum absences"
                 placeholder="Min absences"
                 component={Input}
-                 type='text'
+                type="text"
               />
               <Field
                 name="min_sick_days"
                 labelText="Minimum sick days"
                 placeholder="Min sick days"
                 component={Input}
-                 type='text'
+                type="text"
               />
 
               <div className="mb-6 flex flex-col justify-end">
