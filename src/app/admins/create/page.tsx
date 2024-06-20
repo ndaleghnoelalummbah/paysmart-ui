@@ -39,7 +39,6 @@ const page = () => {
         const user = res.data.admin;
         const admin = {
           id: user.id,
-          password: user.password,
           email: user.email,
         };
         // AsyncStorage.setItem("token", res.data.user.accessToken);

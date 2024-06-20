@@ -39,7 +39,6 @@ const page = () => {
           return {
             id: item.admin.id,
             email: item.admin.email,
-            password: item.admin.password,
           };
         });
 
@@ -65,18 +64,7 @@ const page = () => {
       selector: (row: Admin) => row.email,
       sortable: true,
     },
-    {
-      name: "Password",
-      selector: (row: Admin) => row.password,
-      sortable: true,
-    },
   ];
-
-  const handleViewAdmin = (row: Admin) => {
-    console.log("Viewing admin", row);
-    router.push(`admins/${row.id}`);
-    // Implement the view logic
-  };
 
   const handleDeleteAdmin = (row: Admin) => {
     console.log("Deleting admin", row);
