@@ -34,9 +34,7 @@ export const useGetPaymentDetails = () => {
             payment: item.payment,
           };
         });
-
         setAnualPayments(anual_payments);
-
         toast.success(res.message);
       } else {
         const message =

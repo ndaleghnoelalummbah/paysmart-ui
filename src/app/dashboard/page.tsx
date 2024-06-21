@@ -36,17 +36,8 @@ import { Metadata } from "next";
 // };
 
 const page = () => {
-  const { user } = useUserStore();
   const { recent_payments } = useRecentPaymentStore();
-  const { getRecentPayments } = useGetPaymentDetails();
-  const { makePayment, initiatePayment } = usePaymentAction()
-
-  useEffect(() => {
-    getRecentPayments();
-  }, [user?.accessToken]);
-
-  console.log("user", user);
-  console.log("most recent pay", recent_payments);
+  const { makePayment, initiatePayment , makingPay, initiatingPay} = usePaymentAction()
 
   const iconMap = {
     total_income_tax: FaMoneyBillWave,
@@ -70,17 +61,19 @@ const page = () => {
     <DefaultLayout>
       <Breadcrumb pageName="Dashboard" />
       <div className=" my-8 flex justify-end ">
-        <div className="flex w-[300px] gap-4">
+        <div className="flex  gap-4  w-[368px]" >
           <Button
             text="Initiate Payment"
             color="secondary"
             btnType={"button"}
-            onClick={()=> initiatePayment()}
+            disabled={initiatingPay}
+            onClick={() => initiatePayment()}
           />
           <Button
             text="Make Payment"
             color="primary"
             btnType={"button"}
+            disabled={makingPay}
             onClick={() => makePayment()}
           />
         </div>
