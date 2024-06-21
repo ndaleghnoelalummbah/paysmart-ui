@@ -1,8 +1,8 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import CustomDataTable from "@/components/table/CustomDataTable";
-import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Admin } from "@/utils/types";
 import { API } from "@/utils/fetcher";
@@ -11,53 +11,28 @@ import { toast } from "react-toastify";
 import DeleteModal from "@/components/Modals/DeleteModal";
 import Button from "@/Button/Button";
 import PasswordResetModal from "@/components/Modals/PasswordResetModal";
-import useAuth from "@/utils/useAuth";
+import useGetAdmins from "@/utils/useGetAdmins";
+import { Metadata } from "next";
+
+// export const metadata: Metadata = {
+//   title: "Admins | PaySmart - Payroll Management",
+//   description:
+//     "Manage and view all admin users in the organization.",
+// };
 
 const page = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPasswordResetModal, setShowPasswordResetModal] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState<Admin | null>(null);
   const { user } = useUserStore();
-  const { setAdmins, admins, removeAdmin } = useAdminsStore();
-  const { resetPassword } = useAuth();
+  const { admins, removeAdmin } = useAdminsStore();
+  const { getAdmins } = useGetAdmins();
   const router = useRouter();
+
   useEffect(() => {
     getAdmins();
   }, [user?.accessToken]);
 
-  const getAdmins = async () => {
-    try {
-      const response = await API.getAllAdmins(user?.accessToken as string);
-      console.log("response", response);
-      const statusCode = response[0];
-      const res = await response[1];
-      const status = response[2];
-
-      if (status) {
-        const data = res.data;
-        const admins = data.map((item: any) => {
-          return {
-            id: item.admin.id,
-            email: item.admin.email,
-          };
-        });
-
-        setAdmins(admins);
-        console.log("admins", admins, data);
-
-        toast.success(res.message);
-        //  router.push("/dashboard", { scroll: false });
-      } else {
-        const message =
-          statusCode === 500
-            ? "Oops! Something went wrong on our end. Please try again later."
-            : res.message;
-        toast.error(message);
-      }
-    } catch (error) {
-      toast.error(error as string);
-    }
-  };
   const adminColumns = [
     {
       name: "Email",
@@ -118,8 +93,6 @@ const page = () => {
       // Implement the delete logic
     };
 
-   
-
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Admins" />
@@ -138,7 +111,7 @@ const page = () => {
         // handleView={handleViewAdmin}
         handleDelete={handleDeleteAdmin}
         resetPassword={handlResetPassword}
-        paginate={false}
+        pagination={false}
       />
       <DeleteModal
         confirmDelete={confirmDelete}

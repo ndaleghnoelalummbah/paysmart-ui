@@ -2,8 +2,12 @@ import { Metadata } from "next";
 import SignIn from "./auth/signin/page";
 
 export const metadata: Metadata = {
-  title: "Next.js E-commerce Dashboard | PaySmart - Next.js Dashboard Template",
-  description: "This is Next.js Home for PaySmart Dashboard Template",
+  title: "PaySmart | PaySmart - Payroll platform",
+  description:
+    "This is PaySmart login page to authenticate administrators for a given organization",
+  icons: {
+    icon: "/images/favicon.ico", // /public path
+  },
 };
 
 export default function Home() {

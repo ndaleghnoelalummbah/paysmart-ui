@@ -129,4 +129,5 @@ export interface FilterParams {
   min_overtime: string;
   min_absences: string;
   min_sick_days: string;
+  // page?: number;
 }

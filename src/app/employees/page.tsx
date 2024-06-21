@@ -1,21 +1,26 @@
 "use client";
+import React, { useEffect} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import CustomDataTable from "@/components/table/CustomDataTable";
-import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Employee } from "@/utils/types";
-import { API } from "@/utils/fetcher";
 import { useUserStore } from "@/zustand/Admin";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
 import { useEmployeeStore } from "@/zustand/employees";
 import { useGetEmployees } from "@/utils/useGetEmployees";
-import FilterForm from "@/components/Form/FilterForm";
+import FilterForm from "@/components/FormInputs/Form/FilterForm";
+import { Metadata } from "next";
+
+// export const metadata: Metadata = {
+//   title: "Employees | PaySmart - Payroll Management",
+//   description: "View all employees in the organization.",
+// };
 
 const page = () => {
   const { user } = useUserStore();
   const { setEmployees, employees } = useEmployeeStore();
-  const { pagination, setPagination, getAllEmployees, getEmployeeAttendances , getEmployeePayments} =
+  const { paginate, setPaginate, getAllEmployees, getEmployeeAttendances , getEmployeePayments} =
     useGetEmployees();
   //  const [pagination, setPagination] = useState({
   //    current_page: 1,
@@ -28,7 +33,10 @@ const page = () => {
   }, [user?.accessToken]); 
 
   const handlePageChange = (page: number) => {
-    setPagination((prev) => ({ ...prev, current_page: page }));
+   // setPaginate((paginate) => ({ ...paginate, current_page: page }));
+    getAllEmployees(page);
+    console.log('page', page, paginate.current_page);
+    
   };
 
   const employeeColumns = [
@@ -102,7 +110,7 @@ const page = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Employee" />
+      <Breadcrumb pageName="Employees" />
       <FilterForm />
       <CustomDataTable
         title="Employees Details"
@@ -110,18 +118,13 @@ const page = () => {
         data={employees}
         // handleView={handleViewEmployee}
         // handleDelete={handleDeleteAdmin}
-        // onPageChange={handlePageChange}
+        onPageChange={handlePageChange}
         viewAttendances={viewEmployeeAtendances}
         viewPayments={viewEmployeePayments}
-        // paginate={{
-        //   current_page: pagination.current_page,
-        //   last_page: pagination.last_page,
-        //   per_page: pagination.per_page,
-        //   onPageChange: handlePageChange,
-        // }}
-        paginate={true}
+        paginate={paginate}
+        pagination={true}
       />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </DefaultLayout>
   );
 };

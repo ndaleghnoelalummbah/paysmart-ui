@@ -1,10 +1,16 @@
 'use client';
+import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import CustomDataTable from "@/components/table/CustomDataTable";
 import { EmployeePayment } from "@/utils/types";
 import { usePaymentStore } from "@/zustand/EmployeePayments";
-import React from "react";
+import { Metadata } from "next";
+
+// export const metadata: Metadata = {
+//   title: "Payment Summary | PaySmart - Payroll Management",
+//   description: "View detailed payment summaries for each employee in the organization.",
+// };
 
 const page = () => {
   const { payments } = usePaymentStore();
@@ -84,7 +90,7 @@ const page = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Employees / payment-summary" />
+      <Breadcrumb pageName="Payment-summary" />
       <CustomDataTable
         title="Employee Payment Records"
         columns={paymentColumns}

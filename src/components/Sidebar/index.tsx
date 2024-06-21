@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaFileAlt, FaShieldAlt, FaTachometerAlt, FaUserTie } from "react-icons/fa";
+import { FaFileAlt, FaShieldAlt, FaUsers } from "react-icons/fa";
 import SidebarLinks from "../SidebarLinks/SidebarLinks";
 import { BsGrid } from "react-icons/bs";
 import { useUserStore } from "@/zustand/Admin";
@@ -70,14 +70,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <Link href="/dashboard">
+        <Link href="/dashboard" className=" flex gap-x-2 items-center ">
           <Image
-            width={176}
-            height={32}
-            src={"/images/logo/logo.svg"}
+            width={40}
+            height={40}
+            src={"/images/favicon.ico"}
             alt="Logo"
             priority
+            className=" rounded-sm"
           />
+          <p className=" text-2xl font-medium text-white"> PaySmart</p>
         </Link>
 
         <button
@@ -86,20 +88,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           aria-controls="sidebar"
           aria-expanded={sidebarOpen}
           className="block lg:hidden"
-        >
-        </button>
+        ></button>
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
 
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <nav className=" px-4 py-4  lg:px-6">
-            <ul className=" flex flex-col gap-1.5">
-              <SidebarLinks path="dashboard" icon={BsGrid} />
-              <SidebarLinks path="reports" icon={FaFileAlt} />
-             {user?.is_super_admin === 1 && <SidebarLinks path="admins" icon={FaShieldAlt} />}
-              <SidebarLinks path="employees" icon={FaUserTie} />
-          
-            </ul>
+          <ul className=" flex flex-col gap-1.5">
+            <SidebarLinks path="dashboard" icon={BsGrid} />
+            <SidebarLinks path="reports" icon={FaFileAlt} />
+            {user?.is_super_admin === 1 && (
+              <SidebarLinks path="admins" icon={FaShieldAlt} />
+            )}
+            <SidebarLinks path="employees" icon={FaUsers} />
+          </ul>
         </nav>
       </div>
     </aside>

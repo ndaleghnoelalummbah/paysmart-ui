@@ -4,10 +4,16 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import CustomDataTable from "@/components/table/CustomDataTable";
 import { Attendance } from "@/utils/types";
 import { useAttendanceStore } from "@/zustand/EmployeeAttendances";
+import { Metadata } from "next";
 import React from "react";
 
-const page = () => {
+// export const metadata: Metadata = {
+//   title: "Employee Attendance | PaySmart - Payroll Management",
+//   description:
+//     "View attendance records for each employee of the organization.",
+// };
 
+const page = () => {
  const { attendances } = useAttendanceStore();
  const attendanceColumns = [
    {
@@ -50,7 +56,7 @@ const page = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Employees / attendances" />
+      <Breadcrumb pageName="Attendances" />
       <CustomDataTable
         title="Employee Attendance Records"
         columns={attendanceColumns}

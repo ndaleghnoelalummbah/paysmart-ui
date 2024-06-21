@@ -9,21 +9,24 @@ import { usePaymentStore } from "@/zustand/EmployeePayments";
 import { monthConversion } from "./monthCoversion";
 
 export const useGetEmployees = () => {
-  const [pagination, setPagination] = useState({
+  const [paginate, setPaginate] = useState({
     current_page: 1,
-    per_page: 3,
+    per_page: 1,
     last_page: 1,
+    total: 1,
   });
   const { user } = useUserStore();
   const { setEmployees, employees } = useEmployeeStore();
-const { setAttendances } = useAttendanceStore();
-const { setPayments } = usePaymentStore();
-  const getAllEmployees = async (filter_params?: FilterParams) => {
+  const { setAttendances } = useAttendanceStore();
+  const { setPayments } = usePaymentStore();
+
+  const getAllEmployees = async (page?: number,  filter_params?: FilterParams) => {
+   // const curr_page = page ? page : paginate.current_page;
     try {
       const response = await API.getAllEmployees(
         user?.accessToken as string,
-        pagination.current_page,
-        filter_params,
+        page as number,
+        filter_params as FilterParams,
       );
       console.log("response", response);
       const statusCode = response[0];
@@ -50,10 +53,11 @@ const { setPayments } = usePaymentStore();
         });
 
         setEmployees(employees);
-        setPagination({
+        setPaginate({
           current_page: res.meta.current_page,
           per_page: res.meta.per_page,
           last_page: res.meta.last_page,
+          total: res.meta.total,
         });
         console.log("Employee", employees, data);
 
@@ -136,16 +140,11 @@ const { setPayments } = usePaymentStore();
             retirement_pay: item.retirement_pay,
             net_pay: item.net_pay,
             gross_pay: item.gross_pay,
-            payment: item.payment
+            payment: item.payment,
           };
         });
-
         setPayments(payments);
-
-        //    console.log("Employee", employees, data);
-
         toast.success(res.message);
-        //  router.push("/dashboard", { scroll: false });
       } else {
         const message =
           statusCode === 500
@@ -159,8 +158,8 @@ const { setPayments } = usePaymentStore();
   };
 
   return {
-    pagination,
-    setPagination,
+    paginate,
+    setPaginate,
     getAllEmployees,
     getEmployeeAttendances,
     getEmployeePayments,

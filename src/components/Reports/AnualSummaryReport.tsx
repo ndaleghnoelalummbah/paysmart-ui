@@ -101,6 +101,7 @@ export const AnualSummaryReport = () => {
       columns={paymentColumns}
       data={anual_payments}
       withAction={false}
+      pagination={false}
       // handleView={handleViewEmployee}
       // handleDelete={handleDeleteAdmin}
       // onPageChange={handlePageChange}

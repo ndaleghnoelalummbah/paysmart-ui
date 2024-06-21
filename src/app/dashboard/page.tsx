@@ -26,6 +26,12 @@ import {
 import AnualSummaryReport from "@/components/Reports/AnualSummaryReport";
 import Button from "@/Button/Button";
 import { usePaymentAction } from "@/utils/usePaymentAction";
+import { Metadata } from "next";
+
+// export const metadata: Metadata = {
+//   title: "Dashboard | PaySmart - Payroll Management",
+//   description: "Overview of the most recent and the anual payroll details.",
+// };
 
 const page = () => {
   const { user } = useUserStore();
@@ -60,7 +66,7 @@ const page = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Dahboard" />
+      <Breadcrumb pageName="Dashboard" />
       <div className=" my-8 flex justify-end ">
         <div className="flex w-[300px] gap-4">
           <Button

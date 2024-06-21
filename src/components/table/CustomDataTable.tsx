@@ -25,10 +25,10 @@ interface CustomDAtaTableProps {
   columns: any;
   data: any;
   withAction?: boolean;
-  paginate?: boolean;
+  pagination?: boolean;
   handleView?: (row: any) => void;
   handleDelete?: (row: any) => void;
-  // paginate;
+  paginate?: any;
   onPageChange?: () => void;
   viewAttendances?: (row: any) => void;
   viewPayments?: (row: any) => void;
@@ -41,6 +41,7 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
   data,
   handleView,
   handleDelete,
+  pagination,
   paginate,
   onPageChange,
   viewAttendances,
@@ -133,6 +134,14 @@ const resetPasswordHandler = (row: RowType) => {
 
   const columnsWithActions = [...columns, actionsColumn];
   const finalColumns = withAction ? [...columns, actionsColumn] : [...columns];
+  const tableHeaderStyle = {
+    headCells: {
+      style: {
+        fontWeight: "bold",
+        fontSize: "14px",
+      },
+    },
+  };
 
   return (
     <div>
@@ -140,14 +149,13 @@ const resetPasswordHandler = (row: RowType) => {
         title={title}
         columns={finalColumns}
         data={data}
-        //paginationRowsPerPageOptions={[paginate.per_page, 6]}
+        customStyles={tableHeaderStyle}
+        paginationRowsPerPageOptions={[0, paginate && paginate.per_page]}
         onChangePage={onPageChange}
-        // pagination
-        pagination={paginate}
+        pagination={pagination}
         paginationServer={true}
         persistTableHead={false}
-        paginationTotalRows={5}
-        // paginationComponentOptions={paginate}
+        paginationTotalRows={paginate && paginate.total}
         highlightOnHover
         actions={
           <div className="my-8 w-fit">

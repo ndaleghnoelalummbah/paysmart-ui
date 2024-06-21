@@ -136,8 +136,8 @@ export const API = {
     filter_params: FilterParams,
   ) => {
     const url = filter_params
-      ? `employees?matricule=${filter_params.matricule}&position=${filter_params.position}&department=${filter_params.department}&min_overtime=${filter_params.min_overtime}&min_absences=${filter_params.min_absences}&min_sick_days=${filter_params.min_sick_days}page=${page}`
-      : "employees";
+      ? `employees?matricule=${filter_params.matricule}&position=${filter_params.position}&department=${filter_params.department}&min_overtime=${filter_params.min_overtime}&min_absences=${filter_params.min_absences}&min_sick_days=${filter_params.min_sick_days}`
+      : `employees?page=${page}`;
 
     const res = await API.execute(url, "GET", null, token);
     return res;
