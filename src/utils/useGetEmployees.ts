@@ -137,7 +137,7 @@ export const useGetEmployees = () => {
             house_allowance_pay: item.house_allowance_pay,
             longevity_allowance_pay: item.longevity_allowance_pay,
             leave_pay: item.leave_pay,
-            retirement_pay: item.retirement_pay,
+            // retirement_pay: item.retirement_pay,
             net_pay: item.net_pay,
             gross_pay: item.gross_pay,
             payment: item.payment,

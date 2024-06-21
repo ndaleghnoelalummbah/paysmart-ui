@@ -61,8 +61,8 @@ const page = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Admins" />
-      <>
+      <Breadcrumb pageName="Add Admin" />
+      <div className=" w-11/12 max-w-lg rounded-lg bg-white p-8 shadow-lg">
         <Formik
           initialValues={initialValues}
           validationSchema={addAdminValidationSchema}
@@ -96,7 +96,7 @@ const page = () => {
             </Form>
           )}
         </Formik>
-      </>
+      </div>
       <ToastContainer />
     </DefaultLayout>
   );

@@ -1,36 +1,49 @@
 import Button from "@/Button/Button";
 import { Admin } from "@/utils/types";
-import { resetPasswordValidationSchema } from "@/utils/validationSchema";
+import {
+  addAdminValidationSchema,
+} from "@/utils/validationSchema";
 import { Formik, Form, Field } from "formik";
-import React from "react";
-import { PasswordInput } from "../FormInputs/Inputs";
-import useAuth from "@/utils/useAuth";
-function PasswordResetModal(props: any) {
-  const { setShowPasswordResetModal, selectedAdmin } = props;
-  const { resetPassword } = useAuth();
+import React, { FC } from "react";
+import { Input, PasswordInput } from "../FormInputs/Inputs";
+import useGetAdmins from "@/utils/useGetAdmins";
+
+interface AddAdminModalProps {
+  setShowAddAdminModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AddAdminModal: FC<AddAdminModalProps> = ({ setShowAddAdminModal }) => {
+  const { addNewAdmin } = useGetAdmins();
   const initialValues = {
+    email: "",
     password: "",
     password_confirmation: "",
   };
-  const handleSubmit = async (values: Partial<Admin>) => {
-    if(selectedAdmin){
-        resetPassword(selectedAdmin.id, values);
-    }
+
+  const handleSubmit = async (values: Admin) => {
+    addNewAdmin(values);
+    setShowAddAdminModal(false);
   };
- 
+
   return (
     <div className=" fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
       <div className=" dark:bg-gray-800 w-11/12 max-w-lg rounded-lg bg-white p-8 shadow-lg">
         <h2 className="mb-12 text-center text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-          Change Admin Password
+          Add New Admin
         </h2>
         <Formik
           initialValues={initialValues}
-          validationSchema={resetPasswordValidationSchema}
-          onSubmit={(values: Partial<Admin>) => handleSubmit(values)}
+          validationSchema={addAdminValidationSchema}
+          onSubmit={(values: Admin) => handleSubmit(values)}
         >
           {({ isSubmitting }) => (
             <div className=" mt-4 text-left">
+              <Field
+                name="email"
+                labelText="Enter your email"
+                component={Input}
+                type="email"
+              />
               <Form>
                 <Field
                   name="password"
@@ -48,12 +61,10 @@ function PasswordResetModal(props: any) {
                     text="Cancel"
                     color="gray"
                     btnType="button"
-                    onClick={() =>
-                      setShowPasswordResetModal((prev: boolean) => !prev)
-                    }
+                    onClick={() => setShowAddAdminModal((prev) => !prev)}
                   />
                   <Button
-                    text="Submit"
+                    text="Add"
                     color="primary"
                     btnType="submit"
                     disabled={isSubmitting}
@@ -66,6 +77,6 @@ function PasswordResetModal(props: any) {
       </div>
     </div>
   );
-}
+};
 
-export default PasswordResetModal;
+export default AddAdminModal;

@@ -3,10 +3,11 @@ import { toast } from "react-toastify";
 import { API } from "./fetcher";
 import { useUserStore } from "@/zustand/Admin";
 import { useAdminsStore } from "@/zustand/Admin";
+import { Admin } from "./types";
 
 const useGetAdmins = () => {
   const { user } = useUserStore();
-  const { setAdmins } = useAdminsStore();
+  const { setAdmins, addAdmin } = useAdminsStore();
 
   const getAdmins = async () => {
     try {
@@ -39,8 +40,49 @@ const useGetAdmins = () => {
       toast.error(error as string);
     }
   };
+
+
+    const addNewAdmin = async (values: Admin) => {
+      try {
+        const response = await API.createAdmin(
+          values,
+          user?.accessToken as string,
+        );
+        console.log("response", response);
+        const statusCode = response[0];
+        const res = await response[1];
+        const status = response[2];
+
+        if (status) {
+          const user = res.data.admin;
+          const admin = {
+            id: user.id,
+            email: user.email,
+          };
+          // AsyncStorage.setItem("token", res.data.user.accessToken);
+          addAdmin(admin);
+          toast.success(res.message);
+
+          console.log("new admisns", values);
+        } else {
+          const message =
+            statusCode === 500
+              ? "Oops! Something went wrong on our end. Please try again later."
+              : res.message;
+          toast.error(message);
+        }
+      } catch (error) {
+        toast.error(error as string);
+      }
+    };
+
+
+
+
+
   return {
     getAdmins,
+    addNewAdmin
   };
 };
 

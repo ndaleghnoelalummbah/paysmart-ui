@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from "react";
 import SweetAlert from "react-bootstrap-sweetalert";
-import remove from "../../../public/images/icons/remove.jpg";
 
 const DeleteModal = (props: any) => {
   const { cancelDelete, confirmDelete, show } = props;

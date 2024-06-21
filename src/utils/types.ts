@@ -71,7 +71,7 @@ export interface YearlyEmployeePaymentSummary {
   total_longevity_allowance_pay: number;
   total_retirement_deduction: number;
   total_leave_pay: number;
-  total_retirement_pay: number;
+  // total_retirement_pay: number;
   payment: Payment;
 }
 
@@ -86,10 +86,10 @@ export interface MostRecentEmployeePayment {
   total_longevity_allowance_pay: number;
   total_retirement_deduction: number;
   total_leave_pay: number;
-  total_retirement_pay: number;
+  // total_retirement_pay: number;
   total_employees_worked: number;
   total_employees_on_leave: number;
-  total_employees_on_retirement: number;
+  // total_employees_on_retirement: number;
   pending_pay: number;
   // payment: Payment;
 }
@@ -105,7 +105,7 @@ export interface EmployeePayment {
   longevity_allowance_pay: number;
   retirement_deduction: number;
   leave_pay: number;
-  retirement_pay: number;
+  // retirement_pay: number;
   admin: number;
   payment: Payment;
 }

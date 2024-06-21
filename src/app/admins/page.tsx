@@ -13,6 +13,7 @@ import Button from "@/Button/Button";
 import PasswordResetModal from "@/components/Modals/PasswordResetModal";
 import useGetAdmins from "@/utils/useGetAdmins";
 import { Metadata } from "next";
+import AddAdminModal from "@/components/Modals/addAdminModal";
 
 // export const metadata: Metadata = {
 //   title: "Admins | PaySmart - Payroll Management",
@@ -23,6 +24,7 @@ import { Metadata } from "next";
 const page = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPasswordResetModal, setShowPasswordResetModal] = useState(false);
+  const [showAddAdminModal, setShowAddAdminModal] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState<Admin | null>(null);
   const { user } = useUserStore();
   const { admins, removeAdmin } = useAdminsStore();
@@ -83,7 +85,8 @@ const page = () => {
   };
 
   const handleAddAdmin = () => {
-    router.push("admins/create");
+    // router.push("admins/create");
+    setShowAddAdminModal(true);
   };
 
 
@@ -123,6 +126,11 @@ const page = () => {
         <PasswordResetModal
           setShowPasswordResetModal={setShowPasswordResetModal}
           selectedAdmin={selectedAdmin}
+        />
+      )}
+      {showAddAdminModal && (
+        <AddAdminModal
+          setShowAddAdminModal={setShowAddAdminModal}
         />
       )}
     </DefaultLayout>

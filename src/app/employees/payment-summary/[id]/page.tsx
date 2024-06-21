@@ -72,11 +72,6 @@ const page = () => {
       sortable: true,
     },
     {
-      name: "Retirement pay",
-      selector: (row: EmployeePayment) => row.retirement_pay,
-      sortable: true,
-    },
-    {
       name: "Net pay",
       selector: (row: EmployeePayment) => row.net_pay,
       sortable: true,

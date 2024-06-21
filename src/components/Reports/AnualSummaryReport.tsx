@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useGetPaymentDetails } from "@/utils/useGetPaymentDetails";
 import { useUserStore } from "@/zustand/Admin";
 
+
 export const AnualSummaryReport = () => {
   const { anual_payments } = useAnualPaymentStore();
   const { getAnualPayments } = useGetPaymentDetails();
@@ -78,11 +79,11 @@ export const AnualSummaryReport = () => {
       selector: (row: YearlyEmployeePaymentSummary) => row.total_leave_pay,
       sortable: true,
     },
-    {
-      name: "Retirement pay",
-      selector: (row: YearlyEmployeePaymentSummary) => row.total_retirement_pay,
-      sortable: true,
-    },
+    // {
+    //   name: "Retirement pay",
+    //   selector: (row: YearlyEmployeePaymentSummary) => row.total_retirement_pay,
+    //   sortable: true,
+    // },
     {
       name: "Net pay",
       selector: (row: YearlyEmployeePaymentSummary) => row.total_net_pay,

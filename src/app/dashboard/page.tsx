@@ -6,6 +6,8 @@ import { useUserStore } from "@/zustand/Admin";
 import { useRecentPaymentStore } from "@/zustand/MostRecentPay";
 import { useGetPaymentDetails } from "@/utils/useGetPaymentDetails";
 import CardDataStats from "@/components/CardDataStats";
+import { IconType } from 'react-icons';
+
 import {
   FaMoneyBillWave,
   FaClock,
@@ -57,10 +59,10 @@ const page = () => {
     total_longevity_allowance_pay: FaAward,
     total_retirement_deduction: FaHandHoldingUsd,
     total_leave_pay: FaUserClock,
-    total_retirement_pay: FaUserCheck,
+    // total_retirement_pay: FaUserCheck,
     total_employees_worked: FaUsers,
     total_employees_on_leave: FaUserTimes,
-    total_employees_on_retirement: FaUserSecret,
+    // total_employees_on_retirement: FaUserSecret,
     pending_pay: FaQuestionCircle,
   };
 
@@ -88,7 +90,7 @@ const page = () => {
         {recent_payments.map((entries, index) => (
           <React.Fragment key={index}>
             {Object.entries(entries).map(([key, value]) => {
-              const Icon = iconMap[key] || FaQuestionCircle;
+              const Icon = iconMap[key];
               return (
                 <CardDataStats
                   key={key}

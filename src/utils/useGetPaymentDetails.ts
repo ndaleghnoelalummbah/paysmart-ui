@@ -30,7 +30,7 @@ export const useGetPaymentDetails = () => {
             total_longevity_allowance_pay: item.total_longevity_allowance_pay,
             total_retirement_deduction: item.total_retirement_deduction,
             total_leave_pay: item.total_leave_pay,
-            total_retirement_pay: item.total_retirement_pay,
+            // total_retirement_pay: item.total_retirement_pay,
             payment: item.payment,
           };
         });
@@ -71,10 +71,10 @@ export const useGetPaymentDetails = () => {
             total_longevity_allowance_pay: item.total_longevity_allowance_pay,
             total_retirement_deduction: item.total_retirement_deduction,
             total_leave_pay: item.total_leave_pay,
-            total_retirement_pay: item.total_retirement_pay,
+            // total_retirement_pay: item.total_retirement_pay,
             total_employees_worked: item.total_employees_worked,
             total_employees_on_leave: item.total_employees_on_leave,
-            total_employees_on_retirement: item.total_employees_on_retirement,
+            // total_employees_on_retirement: item.total_employees_on_retirement,
             pending_pay: item.pending_pay,
             // payment: item.payment,
           };
