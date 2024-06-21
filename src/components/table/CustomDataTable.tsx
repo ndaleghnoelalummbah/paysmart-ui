@@ -33,6 +33,7 @@ interface CustomDAtaTableProps {
   viewAttendances?: (row: any) => void;
   viewPayments?: (row: any) => void;
   resetPassword?: (row: any) => void;
+  handleAddAdmin?: () => void;
 }
 
 const CustomDataTable: FC<CustomDAtaTableProps> = ({
@@ -48,6 +49,7 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
   viewPayments,
   resetPassword,
   withAction = true,
+  handleAddAdmin,
 }) => {
   const viewHandler = (row: RowType) => {
     {
@@ -69,11 +71,11 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
       handleDelete && handleDelete(row);
     }
   };
-const resetPasswordHandler = (row: RowType) => {
-  {
-    resetPassword && resetPassword(row);
-  }
-};
+  const resetPasswordHandler = (row: RowType) => {
+    {
+      resetPassword && resetPassword(row);
+    }
+  };
 
   const actionsColumn = {
     name: "Actions",
@@ -157,9 +159,14 @@ const resetPasswordHandler = (row: RowType) => {
         persistTableHead={false}
         paginationTotalRows={paginate && paginate.total}
         highlightOnHover
-        actions={
+        actions={handleAddAdmin &&
           <div className="my-8 w-fit">
-            <Button text={"Export PDF"} color={"primary"} btnType={"button"} />
+            <Button
+              text="ADD ADMIN"
+              color="primary"
+              btnType="button"
+              onClick={handleAddAdmin}
+            />
           </div>
         }
       />

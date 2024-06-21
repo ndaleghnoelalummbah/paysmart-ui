@@ -22,7 +22,7 @@ const Button: FC<ButtonProps> = ({
       className={`w-full cursor-pointer rounded border border-${color} bg-${color} p-2 text-white transition hover:bg-opacity-30`}
     >
       <div className="flex w-full items-center justify-center ">
-        <div className=" font-bold capitalize"> {text}</div>
+        <div className=" font-medium capitalize"> {text}</div>
         <div>{disabled && <Spinner />}</div>
       </div>
     </button>

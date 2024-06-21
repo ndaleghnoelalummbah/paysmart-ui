@@ -82,7 +82,7 @@ const page = () => {
     setShowDeleteModal(false);
   };
 
-  const handleClick = () => {
+  const handleAddAdmin = () => {
     router.push("admins/create");
   };
 
@@ -96,19 +96,19 @@ const page = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Admins" />
-      <div className="flex, float-end mb-12 ">
+      {/* <div className="flex, float-end mb-12 ">
         <Button
           text="ADD ADMIN"
           color="primary"
           btnType="button"
           onClick={handleClick}
         />
-      </div>
+      </div> */}
       <CustomDataTable
         title="Admin Records"
         columns={adminColumns}
         data={admins}
-        // handleView={handleViewAdmin}
+        handleAddAdmin={handleAddAdmin}
         handleDelete={handleDeleteAdmin}
         resetPassword={handlResetPassword}
         pagination={false}
