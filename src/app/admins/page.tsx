@@ -8,7 +8,7 @@ import { Admin } from "@/utils/types";
 import { API } from "@/utils/fetcher";
 import { useUserStore, useAdminsStore } from "@/zustand/Admin";
 import { toast } from "react-toastify";
-import DeleteModal from "@/components/Modals/DeleteModal";
+import ConfirmModal from "@/components/Modals/ConfirmModal";
 import Button from "@/Button/Button";
 import PasswordResetModal from "@/components/Modals/PasswordResetModal";
 import useGetAdmins from "@/utils/useGetAdmins";
@@ -116,10 +116,11 @@ const page = () => {
         resetPassword={handlResetPassword}
         pagination={false}
       />
-      <DeleteModal
+      <ConfirmModal
         confirmDelete={confirmDelete}
         cancelDelete={cancelDelete}
         show={showDeleteModal}
+        text="You will not be able to recover this Admin once deleted.!"
         // name={selectedAdmin?.email}
       />
       {showPasswordResetModal && (
@@ -129,9 +130,7 @@ const page = () => {
         />
       )}
       {showAddAdminModal && (
-        <AddAdminModal
-          setShowAddAdminModal={setShowAddAdminModal}
-        />
+        <AddAdminModal setShowAddAdminModal={setShowAddAdminModal} />
       )}
     </DefaultLayout>
   );

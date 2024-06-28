@@ -1,24 +1,31 @@
+import React, { useState } from "react";
 import Button from "@/Button/Button";
 import { FilterParams } from "@/utils/types";
 import { useGetEmployees } from "@/utils/useGetEmployees";
 import { filterValidationSchema } from "@/utils/validationSchema";
 import { Formik, Form, Field } from "formik";
 import { Input } from "../Inputs";
-import React from "react";
+import { useFilterStore } from "@/zustand/employees";
 
 const FilterForm = () => {
   const { getAllEmployees } = useGetEmployees();
-  const initialValues = {
+  const { setFilterParams } = useFilterStore();
+  const [initialValues, setInitialValues] = useState({
     matricule: "",
     position: "",
     department: "",
     min_overtime: "",
     min_absences: "",
     min_sick_days: "",
-  };
+    page: ""
+  });
+
   const handleSubmit = async (values: FilterParams) => {
-    console.log("filter", values);
+   // setInitialValues(values);
+   setFilterParams(values);
    values && getAllEmployees(values);
+       console.log("filter", values);
+
   };
 
   return (

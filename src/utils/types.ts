@@ -109,18 +109,12 @@ export interface EmployeePayment {
   admin: number;
   payment: Payment;
 }
-export interface PaginatedExtraDataEntity {
+export interface PaginatedData {
   current_page?: number;
-  first_page_url?: string;
-  from?: number;
   last_page?: number;
-  last_page_url?: string;
-  next_page_url?: string;
-  path?: string;
-  per_page?: 20;
-  prev_page_url?: null;
-  to?: 20;
-  total?: 3236;
+  per_page?: number;
+  total?: number;
+
 }
 export interface FilterParams {
   matricule: string;
@@ -129,5 +123,5 @@ export interface FilterParams {
   min_overtime: string;
   min_absences: string;
   min_sick_days: string;
-  // page?: number;
+  page: string;
 }

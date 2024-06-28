@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import CustomDataTable from "@/components/table/CustomDataTable";
@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { Employee } from "@/utils/types";
 import { useUserStore } from "@/zustand/Admin";
 // import { ToastContainer, toast } from "react-toastify";
-import { useEmployeeStore } from "@/zustand/employees";
+import {
+  useEmployeeStore,
+  useFilterStore,
+  usePaginatedDataStore,
+} from "@/zustand/Employees";
 import { useGetEmployees } from "@/utils/useGetEmployees";
 import FilterForm from "@/components/FormInputs/Form/FilterForm";
 import { Metadata } from "next";
@@ -20,8 +24,11 @@ import { Metadata } from "next";
 const page = () => {
   const { user } = useUserStore();
   const { setEmployees, employees } = useEmployeeStore();
-  const { paginate, setPaginate, getAllEmployees, getEmployeeAttendances , getEmployeePayments} =
+  const { getAllEmployees, getEmployeeAttendances, getEmployeePayments } =
     useGetEmployees();
+  const { filter_params } = useFilterStore();
+  const { paginated_data } = usePaginatedDataStore();
+
   //  const [pagination, setPagination] = useState({
   //    current_page: 1,
   //    per_page: 3,
@@ -30,13 +37,12 @@ const page = () => {
   const router = useRouter();
   useEffect(() => {
     getAllEmployees();
-  }, [user?.accessToken]); 
+  }, [user?.accessToken]);
 
-  const handlePageChange = (page: number) => {
-   // setPaginate((paginate) => ({ ...paginate, current_page: page }));
-    getAllEmployees(page);
-    console.log('page', page, paginate.current_page);
-    
+  const handlePageChange = (page: string) => {
+    // setPaginate((paginate) => ({ ...paginate, current_page: page }));
+    getAllEmployees({ ...filter_params, page: page });
+    console.log("page", paginated_data);
   };
 
   const employeeColumns = [
@@ -121,7 +127,7 @@ const page = () => {
         onPageChange={handlePageChange}
         viewAttendances={viewEmployeeAtendances}
         viewPayments={viewEmployeePayments}
-        paginate={paginate}
+        paginate={paginated_data}
         pagination={true}
       />
       {/* <ToastContainer /> */}

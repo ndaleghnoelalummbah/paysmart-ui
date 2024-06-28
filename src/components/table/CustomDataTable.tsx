@@ -142,6 +142,30 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
         fontWeight: "bold",
         fontSize: "14px",
       },
+      // stripedStyle: {
+      //   // color: "NORMALCOLOR",
+      //   backgroundColor: "red",
+      // },
+    },
+  };
+
+  const customStyles = {
+    table: {
+      style: {
+        backgroundColor: "#0000 !important",
+        color: "#fff",
+      },
+    },
+    // headRow: {
+    //   style: {
+    //     backgroundColor: "#444",
+    //   },
+    // },
+    headCells: {
+      style: {
+        fontWeight: "bold",
+        fontSize: "14px",
+      },
     },
   };
 
@@ -151,7 +175,7 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
         title={title}
         columns={finalColumns}
         data={data}
-        customStyles={tableHeaderStyle}
+        customStyles={customStyles}
         paginationRowsPerPageOptions={[0, paginate && paginate.per_page]}
         onChangePage={onPageChange}
         pagination={pagination}
@@ -159,15 +183,18 @@ const CustomDataTable: FC<CustomDAtaTableProps> = ({
         persistTableHead={false}
         paginationTotalRows={paginate && paginate.total}
         highlightOnHover
-        actions={handleAddAdmin &&
-          <div className="my-8 w-fit">
-            <Button
-              text="ADD ADMIN"
-              color="primary"
-              btnType="button"
-              onClick={handleAddAdmin}
-            />
-          </div>
+        // className="bg-red"  pol.
+        actions={
+          handleAddAdmin && (
+            <div className="my-8 w-fit">
+              <Button
+                text="ADD ADMIN"
+                color="primary"
+                btnType="button"
+                onClick={handleAddAdmin}
+              />
+            </div>
+          )
         }
       />
       <ToastContainer />

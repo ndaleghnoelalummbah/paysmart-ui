@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { HiOutlineLogout } from "react-icons/hi";
 import useAuth from "@/utils/useAuth";
+import DarkModeSwitcher from "./DarkModeSwitcher";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -67,9 +68,9 @@ const Header = (props: {
         </div>
 
         <div className="flex items-center gap-2 2xsm:gap-7">
-          {/* <ul className="flex items-center gap-2 2xsm:gap-4">
+          <ul className="flex items-center gap-2 2xsm:gap-4">
             <DarkModeSwitcher />
-          </ul> */}
+          </ul>
           <button
             onClick={() => logout()}
             className="flex items-center gap-2 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-danger lg:text-base"

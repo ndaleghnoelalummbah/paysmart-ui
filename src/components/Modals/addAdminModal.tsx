@@ -26,8 +26,8 @@ const AddAdminModal: FC<AddAdminModalProps> = ({ setShowAddAdminModal }) => {
   };
 
   return (
-    <div className=" fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
-      <div className=" dark:bg-gray-800 w-11/12 max-w-lg rounded-lg bg-white p-8 shadow-lg">
+    <div className=" fixed inset-0 flex items-center justify-center  bg-black bg-opacity-50 ">
+      <div className=" dark:bg-gray-800 w-11/12 max-w-lg rounded-lg bg-white p-8 shadow-lg dark:bg-boxdark">
         <h2 className="mb-12 text-center text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
           Add New Admin
         </h2>

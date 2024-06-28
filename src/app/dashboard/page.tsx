@@ -1,7 +1,7 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useUserStore } from "@/zustand/Admin";
 import { useRecentPaymentStore } from "@/zustand/MostRecentPay";
 import { useGetPaymentDetails } from "@/utils/useGetPaymentDetails";
@@ -28,6 +28,7 @@ import {
 import AnualSummaryReport from "@/components/Reports/AnualSummaryReport";
 import Button from "@/Button/Button";
 import { usePaymentAction } from "@/utils/usePaymentAction";
+import ConfirmModal from "@/components/Modals/ConfirmModal";
 import { Metadata } from "next";
 
 // export const metadata: Metadata = {
@@ -35,9 +36,19 @@ import { Metadata } from "next";
 //   description: "Overview of the most recent and the anual payroll details.",
 // };
 
+
+
 const page = () => {
+  const [showInitiatePaymentModal, setShowInitiatePaymentModal] = useState(false)
+  const [showMakePaymentModal, setShowMakePaymentModal] = useState(false)
   const { recent_payments } = useRecentPaymentStore();
   const { makePayment, initiatePayment , makingPay, initiatingPay} = usePaymentAction()
+  const { getRecentPayments } = useGetPaymentDetails();
+  const { user } = useUserStore();
+
+   useEffect(() => {
+     getRecentPayments();
+   }, [user?.accessToken]);
 
   const iconMap = {
     total_income_tax: FaMoneyBillWave,
@@ -57,24 +68,32 @@ const page = () => {
     pending_pay: FaQuestionCircle,
   };
 
+  const confirmInitiatePayment = async () => {
+   await initiatePayment();
+    setShowInitiatePaymentModal(false);
+  }
+  const confirmMakePayment = async () => {
+   await makePayment();
+    setShowMakePaymentModal(false)
+  }
+ 
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Dashboard" />
       <div className=" my-8 flex justify-end ">
-        <div className="flex  gap-4  w-[368px]" >
+        <div className="flex  w-[300px]  gap-4">
           <Button
             text="Initiate Payment"
             color="secondary"
             btnType={"button"}
-            disabled={initiatingPay}
-            onClick={() => initiatePayment()}
+            onClick={() => setShowInitiatePaymentModal(true)}
           />
           <Button
             text="Make Payment"
             color="primary"
             btnType={"button"}
-            disabled={makingPay}
-            onClick={() => makePayment()}
+            onClick={() => setShowMakePaymentModal(true)}
           />
         </div>
       </div>
@@ -99,6 +118,20 @@ const page = () => {
       <div className=" mt-24">
         <AnualSummaryReport />
       </div>
+      <ConfirmModal
+        show={showInitiatePaymentModal}
+        cancelDelete={() => setShowInitiatePaymentModal(false)}
+        initiatePayment={confirmInitiatePayment}
+        text="You will not be able to revert this action once the payment is initiated."
+        initiatingPay={initiatingPay}
+      />
+      <ConfirmModal
+        show={showMakePaymentModal}
+        cancelDelete={() => setShowMakePaymentModal(false)}
+        makePayment={confirmMakePayment}
+        text="You will not be able to revert this action once payment is made."
+        makingPay={makingPay}
+      />
     </DefaultLayout>
   );
 };

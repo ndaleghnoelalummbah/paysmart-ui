@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { API } from "./fetcher";
 import { useUserStore } from "@/zustand/Admin";
-import { useEmployeeStore } from "@/zustand/employees";
+import { useEmployeeStore, usePaginatedDataStore } from "@/zustand/Employees";
 import { toast } from "react-toastify";
 import { FilterParams } from "./types";
 import { useAttendanceStore } from "@/zustand/EmployeeAttendances";
@@ -9,32 +9,34 @@ import { usePaymentStore } from "@/zustand/EmployeePayments";
 import { monthConversion } from "./monthCoversion";
 
 export const useGetEmployees = () => {
-  const [paginate, setPaginate] = useState({
-    current_page: 1,
-    per_page: 1,
-    last_page: 1,
-    total: 1,
-  });
+  // const [paginate, setPaginate] = useState({
+  //   current_page: 1,
+  //   per_page: 1,
+  //   last_page: 1,
+  //   total: 1,
+  // });
+
+  const { setPaginatedData } = usePaginatedDataStore();
   const { user } = useUserStore();
-  const { setEmployees, employees } = useEmployeeStore();
+  const { setEmployees } = useEmployeeStore();
   const { setAttendances } = useAttendanceStore();
   const { setPayments } = usePaymentStore();
 
-  const getAllEmployees = async (page?: number,  filter_params?: FilterParams) => {
-   // const curr_page = page ? page : paginate.current_page;
+  const getAllEmployees = async (filter_params?: FilterParams) => {
+    // const curr_page = page ? page : paginate.current_page;
     try {
       const response = await API.getAllEmployees(
         user?.accessToken as string,
-        page as number,
+        // page as number,
         filter_params as FilterParams,
       );
       console.log("response", response);
       const statusCode = response[0];
       const res = await response[1];
       const status = response[2];
-
       if (status) {
         const data = res.data;
+
         const employees = data.map((item: any) => {
           return {
             id: item.id,
@@ -51,18 +53,16 @@ export const useGetEmployees = () => {
             total_absences: item.total_absences,
           };
         });
-
         setEmployees(employees);
-        setPaginate({
+
+        const paginatedData = res.meta && {
           current_page: res.meta.current_page,
           per_page: res.meta.per_page,
           last_page: res.meta.last_page,
           total: res.meta.total,
-        });
-        console.log("Employee", employees, data);
-
-        toast.success(res.message);
-        //  router.push("/dashboard", { scroll: false });
+        };
+        setPaginatedData(paginatedData);
+        toast.info(res.message);
       } else {
         const message =
           statusCode === 500
@@ -158,8 +158,8 @@ export const useGetEmployees = () => {
   };
 
   return {
-    paginate,
-    setPaginate,
+    // paginate,
+    // setPaginate,
     getAllEmployees,
     getEmployeeAttendances,
     getEmployeePayments,

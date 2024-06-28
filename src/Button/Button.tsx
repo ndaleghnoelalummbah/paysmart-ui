@@ -19,7 +19,7 @@ const Button: FC<ButtonProps> = ({
     <button
       type={btnType}
       onClick={onClick}
-      className={`w-full cursor-pointer rounded border border-${color} bg-${color} p-2 text-white transition hover:bg-opacity-30`}
+      className={`w-full cursor-pointer rounded border border-${color} bg-${color} p-2 text-white transition hover:bg-opacity-30 dark:border-strokedark`}
     >
       <div className="flex w-full items-center justify-center ">
         <div className=" font-medium capitalize"> {text}</div>
