@@ -50,9 +50,9 @@ export const AnualSummaryReport = () => {
       sortable: true,
     },
     {
-      name: "Redtirement deduction",
+      name: "CNPS contribution",
       selector: (row: YearlyEmployeePaymentSummary) =>
-        row.total_retirement_deduction,
+        row.total_cnps_contribution,
       sortable: true,
     },
     {
@@ -86,6 +86,12 @@ export const AnualSummaryReport = () => {
     {
       name: "Gross pay",
       selector: (row: YearlyEmployeePaymentSummary) => row.total_gross_pay,
+      sortable: true,
+    },
+    {
+      name: "Pay Package",
+      selector: (row: YearlyEmployeePaymentSummary) =>
+        row.payment.total_pay_with_cnps,
       sortable: true,
     },
   ];

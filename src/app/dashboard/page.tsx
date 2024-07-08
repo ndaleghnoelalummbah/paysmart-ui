@@ -59,7 +59,7 @@ const page = () => {
     total_gross_pay: FaCoins,
     total_house_allowance_pay: FaHome,
     total_longevity_allowance_pay: FaAward,
-    total_retirement_deduction: FaHandHoldingUsd,
+    total_cnps_contribution: FaHandHoldingUsd,
     total_leave_pay: FaUserClock,
     // total_retirement_pay: FaUserCheck,
     total_employees_worked: FaUsers,

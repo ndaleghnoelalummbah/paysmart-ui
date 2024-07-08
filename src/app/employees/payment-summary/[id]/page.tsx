@@ -6,11 +6,10 @@ import CustomDataTable from "@/components/table/CustomDataTable";
 import { EmployeePayment } from "@/utils/types";
 import { usePaymentStore } from "@/zustand/EmployeePayments";
 import { Metadata } from "next";
+import ChartOne from "@/components/Charts/ChartOne";
+import { ApexOptions } from "apexcharts";
 
-// export const metadata: Metadata = {
-//   title: "Payment Summary | PaySmart - Payroll Management",
-//   description: "View detailed payment summaries for each employee in the organization.",
-// };
+
 
 const page = () => {
   const { payments } = usePaymentStore();
@@ -40,16 +39,7 @@ const page = () => {
       selector: (row: EmployeePayment) => row.total_normal_pay_hours,
       sortable: true,
     },
-    {
-      name: "Income tax",
-      selector: (row: EmployeePayment) => row.income_tax,
-      sortable: true,
-    },
-    {
-      name: "Redtirement deduction",
-      selector: (row: EmployeePayment) => row.retirement_deduction,
-      sortable: true,
-    },
+
     {
       name: "Overtime pay",
       selector: (row: EmployeePayment) => row.overtime_pay,
@@ -72,8 +62,18 @@ const page = () => {
       sortable: true,
     },
     {
-      name: "Net pay",
-      selector: (row: EmployeePayment) => row.net_pay,
+      name: "Income tax",
+      selector: (row: EmployeePayment) => row.income_tax,
+      sortable: true,
+    },
+    {
+      name: "Employee CNPS contribution",
+      selector: (row: EmployeePayment) => row.employee_cnps_contribution,
+      sortable: true,
+    },
+    {
+      name: "Employer CNPS contribution",
+      selector: (row: EmployeePayment) => row.employer_cnps_contribution,
       sortable: true,
     },
     {
@@ -81,7 +81,177 @@ const page = () => {
       selector: (row: EmployeePayment) => row.gross_pay,
       sortable: true,
     },
+    {
+      name: "Net pay",
+      selector: (row: EmployeePayment) => row.net_pay,
+      sortable: true,
+    },
   ];
+
+ 
+
+ 
+
+  const monthly_tax = payments.map((item: EmployeePayment) => item.income_tax);
+  const monthly_cnps_contribution = payments.map(
+    (item: EmployeePayment) => item.employee_cnps_contribution,
+  );
+  const monthly_gross_pay = payments.map(
+    (item: EmployeePayment) => item.gross_pay,
+  );
+  const monthly_net_pay = payments.map((item: EmployeePayment) => item.net_pay);
+
+  const series = [
+    {
+      name: "Income Tax",
+      data: monthly_tax,
+    },
+
+    {
+      name: "CNPS Contribution",
+      data: monthly_cnps_contribution,
+    },
+    {
+      name: "CNPS Contribution",
+      data: monthly_gross_pay,
+    },
+
+    {
+      name: "Net Pay",
+      data: monthly_net_pay,
+    },
+  ];
+
+  const chartLabel = [
+    {
+      color: "red",
+      name: "Income Tax",
+    },
+    {
+      color: "body",
+      name: "CNPS Contribution",
+    },
+    {
+      color: "primary",
+      name: "Gross Pay",
+    },
+    {
+      color: "secondary",
+      name: "Net Pay",
+    },
+  ];
+
+  const data = [
+   ... monthly_tax,
+   ... monthly_cnps_contribution,
+   ... monthly_gross_pay,
+   ... monthly_net_pay,
+  ];
+  const max = Math.max(...data);
+
+   const options: ApexOptions = {
+     legend: {
+       show: false,
+       position: "top",
+       horizontalAlign: "left",
+     },
+     colors: ["#FB5454", "#64748B", "#3B82F6", "#80CAEE"],
+     chart: {
+       fontFamily: "Satoshi, sans-serif",
+       height: 335,
+       type: "area",
+       dropShadow: {
+         enabled: true,
+         color: "#623CEA14",
+         top: 10,
+         blur: 4,
+         left: 0,
+         opacity: 0.1,
+       },
+
+       toolbar: {
+         show: false,
+       },
+     },
+     responsive: [
+       {
+         breakpoint: 1024,
+         options: {
+           chart: {
+             height: 300,
+           },
+         },
+       },
+       {
+         breakpoint: 1366,
+         options: {
+           chart: {
+             height: 350,
+           },
+         },
+       },
+     ],
+     stroke: {
+       width: [2, 2],
+       curve: "straight",
+     },
+     // labels: {
+     //   show: false,
+     //   position: "top",
+     // },
+     grid: {
+       xaxis: {
+         lines: {
+           show: true,
+         },
+       },
+       yaxis: {
+         lines: {
+           show: true,
+         },
+       },
+     },
+     dataLabels: {
+       enabled: false,
+     },
+     markers: {
+       size: 4,
+       colors: "#fff",
+       strokeColors: ["#FB5454", "#64748B", "#3B82F6", "#80CAEE"],
+       strokeWidth: 3,
+       strokeOpacity: 0.9,
+       strokeDashArray: 0,
+       fillOpacity: 1,
+       discrete: [],
+       hover: {
+         size: undefined,
+         sizeOffset: 5,
+       },
+     },
+     xaxis: {
+       type: "category",
+       categories: payments.map((item) => {
+         const date = new Date(item.payment.payslip_issue_date);
+         return date.toLocaleString("default", { month: "long" });
+       }),
+
+       axisBorder: {
+         show: false,
+       },
+       axisTicks: {
+         show: false,
+       },
+     },
+     yaxis: {
+       title: {
+         style: {
+           fontSize: "0px",
+         },
+       },
+       min: 0,
+       max: Math.ceil
+     },
+   };
 
   return (
     <DefaultLayout>
@@ -91,18 +261,8 @@ const page = () => {
         columns={paymentColumns}
         data={payments}
         withAction={false}
-        // handleView={handleViewEmployee}
-        // handleDelete={handleDeleteAdmin}
-        // onPageChange={handlePageChange}
-        // viewAttendances={viewEmployeeAtendances}
-        // viewPayments={viewEmployeePayments}
-        // paginate={{
-        //   current_page: pagination.current_page,
-        //   last_page: pagination.last_page,
-        //   per_page: pagination.per_page,
-        //   onPageChange: handlePageChange,
-        // }}
       />
+      <ChartOne options={options} series={series} chartLabel={chartLabel} />
     </DefaultLayout>
   );
 };

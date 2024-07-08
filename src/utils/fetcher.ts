@@ -19,7 +19,10 @@ export const API = {
       Accept: "application/json",
     };
     let fetchPromises: Promise<Response | null> | null = null;
-    fetchPromises = fetch(`http://localhost:8000/api/v1/en/${url}`, {
+    const base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
+    console.log("url", `${base_url}`);
+
+    fetchPromises = fetch(`${base_url}${url}`, {
       method: method,
       headers,
       body: data,
@@ -52,7 +55,6 @@ export const API = {
    * @returns
    */
   signIn: async (data: Admin) => {
-    console.log("url", `${process.env.NEXT_PUBLIC_BASE_URL}`);
     const res = await API.execute("auth/login", "POST", JSON.stringify(data));
     return res;
   },

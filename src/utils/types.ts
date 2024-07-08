@@ -21,6 +21,10 @@ export interface Department {
 export interface Payment {
   id: number;
   admin_id: number;
+  total_income_tax: number;
+  total_cnps_contribution: number;
+  total_pay: number;
+  total_pay_with_cnps: number;
   is_effected: boolean;
   payment_date: string;
   payslip_issue_date: string;
@@ -69,7 +73,7 @@ export interface YearlyEmployeePaymentSummary {
   total_gross_pay: number;
   total_house_allowance_pay: number;
   total_longevity_allowance_pay: number;
-  total_retirement_deduction: number;
+  total_cnps_contribution: number;
   total_leave_pay: number;
   // total_retirement_pay: number;
   payment: Payment;
@@ -84,7 +88,7 @@ export interface MostRecentEmployeePayment {
   total_gross_pay: number;
   total_house_allowance_pay: number;
   total_longevity_allowance_pay: number;
-  total_retirement_deduction: number;
+  total_cnps_contribution: number;
   total_leave_pay: number;
   // total_retirement_pay: number;
   total_employees_worked: number;
@@ -103,7 +107,8 @@ export interface EmployeePayment {
   gross_pay: number;
   house_allowance_pay: number;
   longevity_allowance_pay: number;
-  retirement_deduction: number;
+  employee_cnps_contribution: number;
+  employer_cnps_contribution: number;
   leave_pay: number;
   // retirement_pay: number;
   admin: number;

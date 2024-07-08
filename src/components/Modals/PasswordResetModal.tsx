@@ -5,6 +5,7 @@ import { Formik, Form, Field } from "formik";
 import React from "react";
 import { PasswordInput } from "../FormInputs/Inputs";
 import useAuth from "@/utils/useAuth";
+
 function PasswordResetModal(props: any) {
   const { setShowPasswordResetModal, selectedAdmin } = props;
   const { resetPassword } = useAuth();
@@ -15,6 +16,7 @@ function PasswordResetModal(props: any) {
   const handleSubmit = async (values: Partial<Admin>) => {
     if(selectedAdmin){
         resetPassword(selectedAdmin.id, values);
+        setShowPasswordResetModal(false);
     }
   };
  
