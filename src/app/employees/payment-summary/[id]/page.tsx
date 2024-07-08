@@ -112,7 +112,7 @@ const Page = () => {
       data: monthly_cnps_contribution,
     },
     {
-      name: "CNPS Contribution",
+      name: "Gross Pay",
       data: monthly_gross_pay,
     },
 
@@ -262,7 +262,7 @@ const Page = () => {
         data={payments}
         withAction={false}
       />
-      <ChartOne options={options} series={series} chartLabel={chartLabel} />
+      <ChartOne options={options} series={series} chartLabel={chartLabel} heading='Payment Summary' />
     </DefaultLayout>
   );
 };
