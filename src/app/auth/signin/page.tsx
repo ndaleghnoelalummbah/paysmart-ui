@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import { useUserStore } from "@/zustand/Admin";
 
-const SignIn: React.FC = () => {
+const Page: React.FC = () => {
   const router = useRouter();
   const { setUser } = useUserStore();
   const initialValues: Admin = {
@@ -92,4 +92,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default Page;

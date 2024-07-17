@@ -29,7 +29,7 @@ interface CustomDAtaTableProps {
   handleView?: (row: any) => void;
   handleDelete?: (row: any) => void;
   paginate?: any;
-  onPageChange?: () => void;
+  onPageChange?: (page: number) => void;
   viewAttendances?: (row: any) => void;
   viewPayments?: (row: any) => void;
   resetPassword?: (row: any) => void;

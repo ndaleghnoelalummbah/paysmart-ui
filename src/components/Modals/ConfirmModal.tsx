@@ -38,14 +38,19 @@ const ConfirmModal = (props: any) => {
       custom
       show={show}
       title="Are you sure?"
-
+      onConfirm={confirmAction}
+      onCancel={() => cancelDelete(false)}
+      confirmBtnText={confirmText}
+      confirmBtnBsStyle={color}
+      cancelBtnBsStyle="default"
+      btnSize="md"
       customButtons={
-        <div className=" flex w-full items-center gap-x-4 md:w-[80%]">
+        <div className="flex w-full items-center gap-x-4 md:w-[80%]">
           <Button
             text="Cancel"
             color="gray"
             btnType={"button"}
-            onClick={cancelDelete}
+            onClick={() => cancelDelete(false)}
           />
           <Button
             text={confirmText}
@@ -57,27 +62,28 @@ const ConfirmModal = (props: any) => {
         </div>
       }
       customIcon={
-        confirmDelete ? (
-          <Image
-            src={"/images/icons/remove.jpg"}
-            width={100}
-            height={100}
-            alt="warning icon"
-            className=" mx-auto mb-3"
-          />
-        ) : (
-          <Image
-            src={"/images/icons/warning.png"}
-            width={180}
-            height={100}
-            alt="warning icon"
-            className=" mx-auto mb-3"
-          />
-        )
+        <div className="text-center">
+          {confirmDelete ? (
+            <Image
+              src={"/images/icons/remove.jpg"}
+              width={100}
+              height={100}
+              alt="warning icon"
+              className="mx-auto mb-3"
+            />
+          ) : (
+            <Image
+              src={"/images/icons/warning.png"}
+              width={180}
+              height={100}
+              alt="warning icon"
+              className="mx-auto mb-3"
+            />
+          )}
+          <span className="text-black">{text}</span>
+        </div>
       }
-    >
-      <span className="text-black">{text}</span>
-    </SweetAlert>
+    ></SweetAlert>
   );
 };
 export default ConfirmModal;

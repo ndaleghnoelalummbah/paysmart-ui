@@ -38,7 +38,7 @@ import { Metadata } from "next";
 
 
 
-const page = () => {
+const Page = () => {
   const [showInitiatePaymentModal, setShowInitiatePaymentModal] = useState(false)
   const [showMakePaymentModal, setShowMakePaymentModal] = useState(false)
   const { recent_payments } = useRecentPaymentStore();
@@ -67,6 +67,7 @@ const page = () => {
     // total_employees_on_retirement: FaUserSecret,
     pending_pay: FaQuestionCircle,
   };
+  type IconKey = keyof typeof iconMap; 
 
   const confirmInitiatePayment = async () => {
    await initiatePayment();
@@ -102,7 +103,8 @@ const page = () => {
         {recent_payments.map((entries, index) => (
           <React.Fragment key={index}>
             {Object.entries(entries).map(([key, value]) => {
-              const Icon = iconMap[key];
+                const iconKey = key as IconKey; // Type assertion
+                const Icon = iconMap[iconKey];
               return (
                 <CardDataStats
                   key={key}
@@ -136,4 +138,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

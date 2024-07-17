@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "This is Next.js Form Elements page for PaySmart - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
-const FormElementsPage = () => {
+const Page = () => {
   return (
     <DefaultLayout>
       <FormElements />
@@ -17,4 +17,4 @@ const FormElementsPage = () => {
   );
 };
 
-export default FormElementsPage;
+export default Page;

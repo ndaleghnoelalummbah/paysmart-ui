@@ -11,7 +11,7 @@ import { ApexOptions } from "apexcharts";
 
 
 
-const page = () => {
+const Page = () => {
   const { payments } = usePaymentStore();
   const paymentColumns = [
     {
@@ -267,4 +267,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

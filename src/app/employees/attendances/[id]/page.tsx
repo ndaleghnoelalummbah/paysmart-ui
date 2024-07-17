@@ -13,7 +13,7 @@ import React from "react";
 //     "View attendance records for each employee of the organization.",
 // };
 
-const page = () => {
+const Page = () => {
  const { attendances } = useAttendanceStore();
  const attendanceColumns = [
    {
@@ -78,4 +78,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

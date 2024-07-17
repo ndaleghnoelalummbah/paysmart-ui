@@ -21,7 +21,7 @@ import AddAdminModal from "@/components/Modals/addAdminModal";
 //     "Manage and view all admin users in the organization.",
 // };
 
-const page = () => {
+const Page = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPasswordResetModal, setShowPasswordResetModal] = useState(false);
   const [showAddAdminModal, setShowAddAdminModal] = useState(false);
@@ -136,4 +136,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
