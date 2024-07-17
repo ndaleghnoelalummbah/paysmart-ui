@@ -47,13 +47,13 @@ const Page = () => {
 
   const employeeColumns = [
     {
-      name: "Name",
-      selector: (row: Employee) => row.name,
+      name: "Matricule",
+      selector: (row: Employee) => row.matricule,
       sortable: true,
     },
     {
-      name: "Matricule",
-      selector: (row: Employee) => row.matricule,
+      name: "Name",
+      selector: (row: Employee) => row.name,
       sortable: true,
     },
     {

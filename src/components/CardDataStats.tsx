@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { IconType } from "react-icons";
 
 interface CardDataStatsProps {
@@ -23,7 +23,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
         </div>
         <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
           {/* {children} */}
-          <Icon size={30}/>
+          <Icon size={30} />
         </div>
       </div>
     </div>

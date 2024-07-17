@@ -6,7 +6,7 @@ import { useUserStore } from "@/zustand/Admin";
 import { useRecentPaymentStore } from "@/zustand/MostRecentPay";
 import { useGetPaymentDetails } from "@/utils/useGetPaymentDetails";
 import CardDataStats from "@/components/CardDataStats";
-import { IconType } from 'react-icons';
+// import { IconType } from 'react-icons';
 
 import {
   FaMoneyBillWave,
@@ -19,17 +19,17 @@ import {
   FaAward,
   FaHandHoldingUsd,
   FaUserClock,
-  FaUserCheck,
+  // FaUserCheck,
   FaUsers,
   FaUserTimes,
-  FaUserSecret,
+  // FaUserSecret,
   FaQuestionCircle,
 } from "react-icons/fa";
 import AnualSummaryReport from "@/components/Reports/AnualSummaryReport";
 import Button from "@/Button/Button";
 import { usePaymentAction } from "@/utils/usePaymentAction";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
-import { Metadata } from "next";
+// import { Metadata } from "next";
 
 // export const metadata: Metadata = {
 //   title: "Dashboard | PaySmart - Payroll Management",
@@ -49,6 +49,7 @@ const Page = () => {
    useEffect(() => {
      getRecentPayments();
    }, [user?.accessToken]);
+console.log('recent ',recent_payments);
 
   const iconMap = {
     total_income_tax: FaMoneyBillWave,

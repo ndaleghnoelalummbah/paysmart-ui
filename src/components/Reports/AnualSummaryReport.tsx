@@ -2,7 +2,7 @@
 import CustomDataTable from "@/components/table/CustomDataTable";
 import { YearlyEmployeePaymentSummary } from "@/utils/types";
 import { useAnualPaymentStore } from "@/zustand/AnualPaymentSummary";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetPaymentDetails } from "@/utils/useGetPaymentDetails";
 import { useUserStore } from "@/zustand/Admin";
 import { ApexOptions } from "apexcharts";
@@ -13,9 +13,60 @@ export const AnualSummaryReport = () => {
   const { getAnualPayments } = useGetPaymentDetails();
   const { user } = useUserStore();
 
+  const monthly_tax = anual_payments.map(
+    (item: YearlyEmployeePaymentSummary) => item.total_income_tax,
+  );
+  const monthly_cnps_contribution = anual_payments.map(
+    (item: YearlyEmployeePaymentSummary) => item.total_cnps_contribution,
+  );
+  const monthly_gross_pay = anual_payments.map(
+    (item: YearlyEmployeePaymentSummary) => item.total_gross_pay,
+  );
+  const monthly_pay_package = anual_payments.map(
+    (item: YearlyEmployeePaymentSummary) => item.payment.total_pay_with_cnps,
+  );
+
+  const [monthlyTax, setMonthlyTax] = useState<number[]>(monthly_tax);
+  const [monthlyCnpscontribution, setMonthlyCNPSContribution] = useState<
+    number[]
+  >(monthly_cnps_contribution);
+  const [monthlyGrossPay, setMonthlyGrossPay] =
+    useState<number[]>(monthly_gross_pay);
+  const [monthlyPayPackage, setMonthlyPayPackage] =
+    useState<number[]>(monthly_pay_package);
+
   useEffect(() => {
     getAnualPayments();
   }, [user?.accessToken]);
+
+  useEffect(() => {
+    const monthly_tax = anual_payments.map(
+      (item: YearlyEmployeePaymentSummary) => item.total_income_tax,
+    );
+    setMonthlyTax(monthly_tax);
+
+    const monthly_cnps_contribution = anual_payments.map(
+      (item: YearlyEmployeePaymentSummary) => item.total_cnps_contribution,
+    );
+    setMonthlyCNPSContribution(monthly_cnps_contribution);
+
+    const monthly_gross_pay = anual_payments.map(
+      (item: YearlyEmployeePaymentSummary) => item.total_gross_pay,
+    );
+    setMonthlyGrossPay(monthly_gross_pay);
+
+    const monthly_pay_package = anual_payments.map(
+      (item: YearlyEmployeePaymentSummary) => item.payment.total_pay_with_cnps,
+    );
+    setMonthlyPayPackage(monthly_pay_package);
+    console.log(
+      "values",
+      monthlyTax,
+      monthlyPayPackage,
+      monthlyGrossPay,
+      monthlyCnpscontribution,
+    );
+  }, [user?.accessToken, anual_payments]);
 
   const paymentColumns = [
     {
@@ -98,37 +149,24 @@ export const AnualSummaryReport = () => {
     },
   ];
 
-  const monthly_tax = anual_payments.map(
-    (item: YearlyEmployeePaymentSummary) => item.total_income_tax,
-  );
-  const monthly_cnps_contribution = anual_payments.map(
-    (item: YearlyEmployeePaymentSummary) => item.total_cnps_contribution,
-  );
-  const monthly_gross_pay = anual_payments.map(
-    (item: YearlyEmployeePaymentSummary) => item.total_gross_pay,
-  );
-  const monthly_pay_package = anual_payments.map(
-    (item: YearlyEmployeePaymentSummary) => item.payment.total_pay_with_cnps,
-  );
-
   const series = [
     {
       name: "Income Tax",
-      data: monthly_tax,
+      data: monthlyTax,
     },
 
     {
       name: "CNPS Contribution",
-      data: monthly_cnps_contribution,
+      data: monthlyCnpscontribution,
     },
     {
       name: "Gross Pay",
-      data: monthly_gross_pay,
+      data: monthlyGrossPay,
     },
 
     {
       name: "Pay Package",
-      data: monthly_pay_package,
+      data: monthlyPayPackage,
     },
   ];
 
@@ -152,11 +190,13 @@ export const AnualSummaryReport = () => {
   ];
 
   const data = [
-    ...monthly_tax,
-    ...monthly_cnps_contribution,
-    ...monthly_gross_pay,
-    ...monthly_pay_package,
+    ...monthlyTax,
+    ...monthlyCnpscontribution,
+    ...monthlyGrossPay,
+    ...monthlyPayPackage,
   ];
+  console.log("data", data);
+
   const max = Math.max(...data);
 
   const options: ApexOptions = {
@@ -259,7 +299,7 @@ export const AnualSummaryReport = () => {
         },
       },
       min: 0,
-      max: Math.ceil,
+      max: Math.ceil(max),
     },
   };
 
@@ -272,7 +312,12 @@ export const AnualSummaryReport = () => {
         withAction={false}
         pagination={false}
       />
-      <ChartOne options={options} series={series} chartLabel={chartLabel} heading='Anual Payment Summary'/>
+      <ChartOne
+        options={options}
+        series={series}
+        chartLabel={chartLabel}
+        heading="Anual Payment Summary"
+      />
     </>
   );
 };

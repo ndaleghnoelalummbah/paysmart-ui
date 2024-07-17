@@ -208,7 +208,7 @@ const Page = () => {
        },
      },
      min: 0,
-     max: Math.ceil,
+     max: Math.ceil(max),
    },
  };
  

@@ -16,10 +16,11 @@ type ChartOneProps = {
   options: ApexOptions;
   series: { name: string; data: number[] }[];
   chartLabel: { color: string; name: string }[];
+  heading: string
 }
 
 
-const ChartOne: React.FC<ChartOneProps> = ({ options, series, chartLabel }) => {
+const ChartOne: React.FC<ChartOneProps> = ({ options, series, chartLabel, heading }) => {
 
   const [state, setState] = useState<ChartOneState>({
     series: series,
