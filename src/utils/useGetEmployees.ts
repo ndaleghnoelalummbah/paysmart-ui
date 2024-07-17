@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { API } from "./fetcher";
 import { useUserStore } from "@/zustand/Admin";
-import { useEmployeeStore, usePaginatedDataStore } from "@/zustand/Employees";
+import { useEmployeeStore, usePaginatedDataStore } from "../zustand/Employees";
 import { toast } from "react-toastify";
 import { FilterParams } from "./types";
 import { useAttendanceStore } from "@/zustand/EmployeeAttendances";
