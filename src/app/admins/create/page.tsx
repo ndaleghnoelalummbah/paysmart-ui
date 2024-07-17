@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const page = () => {
+const Page = () => {
   const { user } = useUserStore();
   const router = useRouter();
   const { addAdmin, admins } = useAdminsStore();
@@ -102,4 +102,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -5,7 +5,7 @@ import { useGetEmployees } from "@/utils/useGetEmployees";
 import { filterValidationSchema } from "@/utils/validationSchema";
 import { Formik, Form, Field } from "formik";
 import { Input } from "../Inputs";
-import { useFilterStore } from "@/zustand/employees";
+import { useFilterStore } from "@/zustand/Employees";
 
 const FilterForm = () => {
   const { getAllEmployees } = useGetEmployees();

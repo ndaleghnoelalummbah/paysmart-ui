@@ -6,7 +6,7 @@ import { useUserStore } from "@/zustand/Admin";
 import { useRecentPaymentStore } from "@/zustand/MostRecentPay";
 import { useGetPaymentDetails } from "@/utils/useGetPaymentDetails";
 import CardDataStats from "@/components/CardDataStats";
-import { IconType } from 'react-icons';
+// import { IconType } from 'react-icons';
 
 import {
   FaMoneyBillWave,
@@ -19,17 +19,17 @@ import {
   FaAward,
   FaHandHoldingUsd,
   FaUserClock,
-  FaUserCheck,
+  // FaUserCheck,
   FaUsers,
   FaUserTimes,
-  FaUserSecret,
+  // FaUserSecret,
   FaQuestionCircle,
 } from "react-icons/fa";
 import AnualSummaryReport from "@/components/Reports/AnualSummaryReport";
 import Button from "@/Button/Button";
 import { usePaymentAction } from "@/utils/usePaymentAction";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
-import { Metadata } from "next";
+// import { Metadata } from "next";
 
 // export const metadata: Metadata = {
 //   title: "Dashboard | PaySmart - Payroll Management",
@@ -38,7 +38,7 @@ import { Metadata } from "next";
 
 
 
-const page = () => {
+const Page = () => {
   const [showInitiatePaymentModal, setShowInitiatePaymentModal] = useState(false)
   const [showMakePaymentModal, setShowMakePaymentModal] = useState(false)
   const { recent_payments } = useRecentPaymentStore();
@@ -49,6 +49,7 @@ const page = () => {
    useEffect(() => {
      getRecentPayments();
    }, [user?.accessToken]);
+console.log('recent ',recent_payments);
 
   const iconMap = {
     total_income_tax: FaMoneyBillWave,
@@ -67,6 +68,7 @@ const page = () => {
     // total_employees_on_retirement: FaUserSecret,
     pending_pay: FaQuestionCircle,
   };
+  type IconKey = keyof typeof iconMap; 
 
   const confirmInitiatePayment = async () => {
    await initiatePayment();
@@ -102,7 +104,8 @@ const page = () => {
         {recent_payments.map((entries, index) => (
           <React.Fragment key={index}>
             {Object.entries(entries).map(([key, value]) => {
-              const Icon = iconMap[key];
+                const iconKey = key as IconKey; // Type assertion
+                const Icon = iconMap[iconKey];
               return (
                 <CardDataStats
                   key={key}
@@ -136,4 +139,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

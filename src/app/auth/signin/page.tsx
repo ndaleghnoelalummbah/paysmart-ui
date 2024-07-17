@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import { useUserStore } from "@/zustand/Admin";
 
-const SignIn: React.FC = () => {
+const Page: React.FC = () => {
   const router = useRouter();
   const { setUser } = useUserStore();
   const initialValues: Admin = {
@@ -53,43 +53,45 @@ const SignIn: React.FC = () => {
     }
   };
   return (
-    <div className="flex h-[100vh] items-center justify-center bg-white">
-      <div className="shadow-normal w-2/3 items-center p-12  lg:w-2/5">
-        <h2 className="mb-12 text-center text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-          Sign In
-        </h2>
+    <div className="bg-custom-image h-[100vh] bg-black  bg-opacity-25 bg-cover bg-center bg-no-repeat">
+      <div className=" w-full flex h-full items-center justify-center bg-black bg-opacity-25">
+        <div className="w-2/3 items-center bg-white p-12  shadow-normal lg:w-2/5">
+          <h2 className="mb-12 text-center text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+            Sign In
+          </h2>
 
-        <Formik
-          initialValues={initialValues}
-          validationSchema={loginValidationSchema}
-          onSubmit={(values: Admin) => handleSubmit(values)}
-        >
-          {({ values, isSubmitting }) => (
-            <Form>
-              <Field
-                name="email"
-                labelText="Enter your email"
-                component={Input}
-                type="email"
-              />
-              <Field
-                name="password"
-                labelText="Enter your password"
-                component={PasswordInput}
-              />
-              <Button
-                text="LOGIN"
-                color="primary"
-                btnType="submit"
-                disabled={isSubmitting}
-              />
-            </Form>
-          )}
-        </Formik>
-        <ToastContainer />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={loginValidationSchema}
+            onSubmit={(values: Admin) => handleSubmit(values)}
+          >
+            {({ values, isSubmitting }) => (
+              <Form>
+                <Field
+                  name="email"
+                  labelText="Enter your email"
+                  component={Input}
+                  type="email"
+                />
+                <Field
+                  name="password"
+                  labelText="Enter your password"
+                  component={PasswordInput}
+                />
+                <Button
+                  text="LOGIN"
+                  color="primary"
+                  btnType="submit"
+                  disabled={isSubmitting}
+                />
+              </Form>
+            )}
+          </Formik>
+          <ToastContainer />
+        </div>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default Page;

@@ -10,7 +10,7 @@ import { Metadata } from "next";
 //   description: "Generate and view payroll reports for the organization.",
 // };
 
-const page = () => {
+const Page = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Reports" />
@@ -19,4 +19,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

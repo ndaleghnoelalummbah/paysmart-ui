@@ -11,7 +11,7 @@ import { ApexOptions } from "apexcharts";
 
 
 
-const page = () => {
+const Page = () => {
   const { payments } = usePaymentStore();
   const paymentColumns = [
     {
@@ -112,7 +112,7 @@ const page = () => {
       data: monthly_cnps_contribution,
     },
     {
-      name: "CNPS Contribution",
+      name: "Gross Pay",
       data: monthly_gross_pay,
     },
 
@@ -249,7 +249,7 @@ const page = () => {
          },
        },
        min: 0,
-       max: Math.ceil
+       max: Math.ceil(max)
      },
    };
 
@@ -262,9 +262,9 @@ const page = () => {
         data={payments}
         withAction={false}
       />
-      <ChartOne options={options} series={series} chartLabel={chartLabel} />
+      <ChartOne options={options} series={series} chartLabel={chartLabel} heading='Payment Summary' />
     </DefaultLayout>
   );
 };
 
-export default page;
+export default Page;

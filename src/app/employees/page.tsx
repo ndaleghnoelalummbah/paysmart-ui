@@ -21,7 +21,7 @@ import { Metadata } from "next";
 //   description: "View all employees in the organization.",
 // };
 
-const page = () => {
+const Page = () => {
   const { user } = useUserStore();
   const { setEmployees, employees } = useEmployeeStore();
   const { getAllEmployees, getEmployeeAttendances, getEmployeePayments } =
@@ -39,21 +39,21 @@ const page = () => {
     getAllEmployees();
   }, [user?.accessToken]);
 
-  const handlePageChange = (page: string) => {
+  const handlePageChange = (page: number) => {
     // setPaginate((paginate) => ({ ...paginate, current_page: page }));
-    getAllEmployees({ ...filter_params, page: page });
+    getAllEmployees({ ...filter_params, page:  page.toString() });
     console.log("page", paginated_data);
   };
 
   const employeeColumns = [
     {
-      name: "Name",
-      selector: (row: Employee) => row.name,
+      name: "Matricule",
+      selector: (row: Employee) => row.matricule,
       sortable: true,
     },
     {
-      name: "Matricule",
-      selector: (row: Employee) => row.matricule,
+      name: "Name",
+      selector: (row: Employee) => row.name,
       sortable: true,
     },
     {
@@ -135,4 +135,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
